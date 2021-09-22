@@ -1,0 +1,25 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Tue Sep 21 17:35:23 2021
+# Process ID: 15800
+# Current directory: C:/Users/andrew_clinkenbeard1/Box/SOC/Class-Assignment-2/Reaction Timer
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11348 C:\Users\andrew_clinkenbeard1\Box\SOC\Class-Assignment-2\Reaction Timer\Reaction Timer.xpr
+# Log file: C:/Users/andrew_clinkenbeard1/Box/SOC/Class-Assignment-2/Reaction Timer/vivado.log
+# Journal file: C:/Users/andrew_clinkenbeard1/Box/SOC/Class-Assignment-2/Reaction Timer\vivado.jou
+#-----------------------------------------------------------sstart_guioopen_project {C:/Users/andrew_clinkenbeard1/Box/SOC/Class-Assignment-2/Reaction Timer/Reaction Timer.xpr}uupdate_compile_order -fileset sources_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/andrew_clinkenbeard1/Box/SOC/Class-Assignment-2/Reaction Timer/Reaction Timer.runs/impl_1/state.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]

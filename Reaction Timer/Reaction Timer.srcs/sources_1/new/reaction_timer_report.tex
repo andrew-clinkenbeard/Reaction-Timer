@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}	% Narrower margins
+\usepackage{booktabs}				% Nice formatting of tables
+\usepackage{graphicx}				% Ability to include graphics
+\usepackage{hyperref}
+
+\setlength\parindent{0pt}	% Do not indent first line of paragraphs 
+
+% ---- Code listings ----
+\usepackage{listings} 					% Nice code layout and inclusion
+\usepackage[usenames,dvipsnames]{xcolor}	% Colors (needs to be defined before using colors)
+
+% Define custom colors for listings
+\definecolor{listinggray}{gray}{0.98}		% Listings background color
+\definecolor{rulegray}{gray}{0.7}			% Listings rule/frame color
+
+% Style for Verilog
+\lstdefinestyle{Verilog}{
+	language=Verilog,					% Verilog
+	backgroundcolor=\color{listinggray},	% light gray background
+	rulecolor=\color{blue}, 			% blue frame lines
+	frame=tb,							% lines above & below
+	linewidth=\columnwidth, 			% set line width
+	basicstyle=\small\ttfamily,	% basic font style that is used for the code	
+	breaklines=true, 					% allow breaking across columns/pages
+	tabsize=3,							% set tab size
+	commentstyle=\color{gray},	% comments in italic 
+	stringstyle=\upshape,				% strings are printed in normal font
+	showspaces=false,					% don't underscore spaces
+}
+
+% How to use: \Verilog[listing_options]{file}
+\newcommand{\Verilog}[2][]{%
+	\lstinputlisting[style=Verilog,#1]{#2}
+}
+
+
+
+\title{Rotating Square Circuit}
+\author{Andrew Clinkenbeard}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+
+In this assignment, a reaction timer was created. When started up the display will read the welcome message: HI. When the user presses the start button, the display goes dark, and after a random interval from 2 to 15 seconds the stimulus LED will light up. At this point the user must press the react button as the time elapsed is shown on the seven segment display. If the user press the button too early 9999 will display. If the user presses the button too late or 1 second has passed the display will show 1000. At any point if the user hits the reset button, it will take them back to the welcome message displayed. 
+
+
+
+%\begin{figure}[h]\centering
+%	\includegraphics[width=\textwidth,trim=0cm 0cm 0cm 0cm,clip]{figure1}
+%	\caption{Desired Pattern}
+%	\label{Desired Pattern}			% label must be after caption
+%\end{figure}
+
+
+\section{Method}
+\subsection{Overview of Method}
+The first step in completing this assignment was to create a top level module that contained the state machine and how to move about it. This module allowded for the display of things on the seven segment display by conecting the seven segment driver with a patterns module. The patterns were gained by converting the milliseconds passed in a binary form, passing them through a binary to decimal convertor, which then allowded the appropriate numbers to be displayed on the seven segment display. The random time was gained by inserting bits from a random number generator that allowded a counter that to count down at random intervals between runs.
+\Verilog[firstline=4]{./state.sv}
+
+\subsection{Counter}
+Below is the counter which was used to count the milliseconds passed since the start button was pressed.
+\Verilog[firstline=23]{./count_up.sv}
+\subsection{Binary to Decimal}
+Below is the binary to decimal convertor which allowded the time to be displayed on the seven segment. 
+\Verilog[firstline=23]{./bin_2_bcd.sv}
+\subsection{Random Number}
+Finally, below is the random number generator which was used to get a radnom time between 2 and 15 seconds. 
+%\Verilog[firstline=23]{./mysseg.srcs/sources_1/new/ssegmain.sv}
+
+\section{Testing}
+To test this, first several runs were done where no reaction time was pressed. Instead the time it took from the start button to the stimulus LED coming on was measured in order to ensure the randomness as well as the 1000 would show when the user was too slow. Next several runs were done were the start button and the react button were hit closer together in order to show that it displayed 9999 when the user was early. Finally several normal runs were done in order to show that the reaction time worked as inteded. 
+
+
+\section{Results}
+The reaction timer worked as wanted. All states were able to be met, and the reset button brought the user back to the HI display at anypoint.
+
+\section{Conclusion}
+In conclusion, the reaction timer gave a good way to understand both statemachines as well as timing. It also gave the ability to see how random numbers are actually generated. The video of the working device can be seen at this \href{https://www.youtube.com/watch?v=FZpEwH8YCFI}{link}.
+
+
+\end{document}
